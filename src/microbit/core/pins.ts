@@ -1,8 +1,19 @@
 import * as fs from 'fs';
 export namespace pins {
-    export const setPull=(trig: DigitalPin,pullMode: PinPullMode.PullNone)=>{
+    export const setPull = (trigPin: number, pullMode: PinPullMode) => {
 
     }
+    export const pulseIn = (pin: number, value: PulseValue, maxDuration?: number):number => {
+        return 0;
+    }
+    export const digitalWritePin = (pin: number, value: number): void => {
+
+        
+    }
+    export const digitalReadPin = (pin: number): number => {
+        return 0;
+    }
+    
     export const createBuffer = (size: number): Uint8Array => {
         const buffer = new Uint8Array(size);
         return buffer;
@@ -61,4 +72,22 @@ export declare const enum NumberFormat {
     Float64LE = 14,
     Float32BE = 15,
     Float64BE = 16,
+}
+
+
+export declare const enum PulseValue {
+    //% block=high
+    High = 4,  // MICROBIT_PIN_EVT_PULSE_HI
+    //% block=low
+    Low = 5,  // MICROBIT_PIN_EVT_PULSE_LO
+    }
+
+
+export declare const enum PinPullMode {
+    //% block="down"
+    PullDown = 0,
+    //% block="up"
+    PullUp = 1,
+    //% block="none"
+    PullNone = 2,
 }

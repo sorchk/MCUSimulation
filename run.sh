@@ -1,3 +1,3 @@
 #!/bin/bash
 tsc -p ./tsconfig.json
-node ./target/app.js
+node ./target/microbit/app.js

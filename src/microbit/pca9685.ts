@@ -1,4 +1,4 @@
-import { pins,NumberFormat } from './core/pins';
+import { pins,NumberFormat, PinPullMode, PulseValue } from './core/pins';
 import { basic,control } from './core/basic';
 
 /**
@@ -59,6 +59,28 @@ enum StopMODE {
     //% block="M_All"
     M_All   =  0x3,
 }
+
+
+export enum PinIndex {
+    P0 = 0x00,
+    P1 = 0x01,
+    P2 = 0x02,
+    P3 = 0x03,
+    P4 = 0x04,
+    P5 = 0x05,
+    P6 = 0x06,
+    P7 = 0x07,
+
+    P8 = 0x08,
+    P9 = 0x09,
+    P10 = 0x0a,
+    P11 = 0x0b,
+    P12 = 0x0c,
+    P13 = 0x0d,
+    P14 = 0x0e,
+    P15 = 0x0f
+}
+
 /**
  * PCA9685
  */
@@ -377,7 +399,7 @@ namespace PCA9685 {
 	 * 超声波距离检测，单位cm
 	*/
     //% block="ping |trig %trig |echo %echo" group="超声波"
-    export function Ultrasonic(trig: DigitalPin, echo: DigitalPin): number {
+    export function Ultrasonic(trig: PinIndex, echo: PinIndex): number {
 
         // send pulse
         pins.setPull(trig, PinPullMode.PullNone);
@@ -413,18 +435,18 @@ namespace PCA9685 {
                 //0 to 4 clock transfer channel address
                 if (j < 4) {
                     if ((i >> (3 - j)) & 0x01) {
-                        pins.digitalWritePin(DigitalPin.P15, 1);
+                        pins.digitalWritePin(115, 1);
                     } else {
-                        pins.digitalWritePin(DigitalPin.P15, 0);
+                        pins.digitalWritePin(115, 0);
                     }
                 }
                 //0 to 10 clock receives the previous conversion result
                 values[i] <<= 1;
-                if (pins.digitalReadPin(DigitalPin.P14)) {
+                if (pins.digitalReadPin(114)) {
                     values[i] |= 0x01;
                 }
-                pins.digitalWritePin(DigitalPin.P13, 1);
-                pins.digitalWritePin(DigitalPin.P13, 0);
+                pins.digitalWritePin(113, 1);
+                pins.digitalWritePin(113, 0);
             }
         }
         //pins.digitalWritePin(DigitalPin.P16, 1);
